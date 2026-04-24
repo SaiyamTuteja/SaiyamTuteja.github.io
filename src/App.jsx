@@ -42,7 +42,6 @@ import Finder from "./apps/Finder";
 import SystemPreferences from "./apps/SystemPreferences";
 import Terminal from "./apps/Terminal";
 import TrashBin from "./apps/TrashBin";
-import { Analytics } from "@vercel/analytics/react";
 import safariIcon from "./image/safari.png";
 import VisitorCounter from "./components/VisitorCounter";
 
@@ -75,7 +74,7 @@ export default function App() {
   const [isDarkText, setIsDarkText] = useState(false);
 
   const [wallpaper, setWallpaper] = useState(
-    "https://images.unsplash.com/photo-1541701494587-cb58502866ab?q=80&w=2560&auto=format&fit=crop"
+    "https://images.unsplash.com/photo-1541701494587-cb58502866ab?q=80&w=2560&auto=format&fit=crop",
   );
 
   const [systemState, setSystemState] = useState({
@@ -226,7 +225,7 @@ export default function App() {
           };
         }
         return win;
-      })
+      }),
     );
     setMaxZIndex((prev) => prev + 1);
     setActiveWindowId(id);
@@ -237,19 +236,19 @@ export default function App() {
 
   const closeWindow = (id) => {
     setWindows((prev) =>
-      prev.map((w) => (w.id === id ? { ...w, isOpen: false } : w))
+      prev.map((w) => (w.id === id ? { ...w, isOpen: false } : w)),
     );
     if (activeWindowId === id) setActiveWindowId(null);
   };
   const minimizeWindow = (id) => {
     setWindows((prev) =>
-      prev.map((w) => (w.id === id ? { ...w, isMinimized: true } : w))
+      prev.map((w) => (w.id === id ? { ...w, isMinimized: true } : w)),
     );
     if (activeWindowId === id) setActiveWindowId(null);
   };
   const focusWindow = (id) => {
     setWindows((prev) =>
-      prev.map((w) => (w.id === id ? { ...w, zIndex: maxZIndex + 1 } : w))
+      prev.map((w) => (w.id === id ? { ...w, zIndex: maxZIndex + 1 } : w)),
     );
     setMaxZIndex((prev) => prev + 1);
     setActiveWindowId(id);
@@ -279,7 +278,7 @@ export default function App() {
 
   const handleUpdateFile = (id, newContent) => {
     setWindows((prev) =>
-      prev.map((w) => (w.id === id ? { ...w, fileContent: newContent } : w))
+      prev.map((w) => (w.id === id ? { ...w, fileContent: newContent } : w)),
     );
   };
 
@@ -385,7 +384,6 @@ export default function App() {
         )}
       </AnimatePresence>
       <MacOSCursor />
-      <Analytics />
       <div
         className="absolute inset-0 bg-cover bg-center transition-all duration-700 ease-in-out z-0"
         style={{
@@ -570,8 +568,8 @@ export default function App() {
                     desktopItems={windows.filter(
                       (w) =>
                         !["finder", "settings", "safari", "trash"].includes(
-                          w.id
-                        )
+                          w.id,
+                        ),
                     )}
                   />
                 );
@@ -615,7 +613,7 @@ export default function App() {
               apps={windows.filter(
                 (w) =>
                   !["settings", "trash"].includes(w.id) &&
-                  !w.id.startsWith("file-")
+                  !w.id.startsWith("file-"),
               )}
               onOpen={openWindow}
               onSearch={() => setIsSearchOpen(true)}
